@@ -32,27 +32,28 @@
     .jar-wrapper {
       position: relative;
       width: 250px;
-      height: auto;
+      height: 350px;
     }
 
     #jar {
       width: 100%;
-      height: auto;
-      display: block;
-      z-index: 1;
-      position: relative;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
     }
 
     #fill {
       position: absolute;
-      bottom: 38px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       width: 60%;
       height: 0%;
       background: rgba(255, 255, 255, 0.5);
       border-radius: 0 0 80px 80px;
-      z-index: 0;
+      z-index: 1;
       transition: height 0.4s ease;
     }
 
@@ -84,7 +85,7 @@
       animation: dropCoin 1s ease-in-out forwards;
       left: 125px;
       top: -60px;
-      z-index: 2;
+      z-index: 3;
     }
 
     @keyframes dropCoin {
@@ -97,7 +98,7 @@
         opacity: 1;
       }
       100% {
-        top: 160px;
+        top: 200px;
         opacity: 0;
         transform: scale(1);
       }
@@ -134,7 +135,7 @@
     let fillLevel = 0;
 
     button.addEventListener("click", () => {
-      // Drop coin animation
+      // Coin animation
       const coin = document.createElement("img");
       coin.src = "coin.png";
       coin.classList.add("coin");
