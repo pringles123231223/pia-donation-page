@@ -26,39 +26,22 @@
       border-radius: 20px;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(10px);
-      position: relative;
     }
 
     .jar-wrapper {
+      text-align: center;
       position: relative;
       width: 250px;
-      height: 350px;
     }
 
     #jar {
       width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 2;
-    }
-
-    #fill {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60%;
-      height: 0%;
-      background: rgba(255, 255, 255, 0.5);
-      border-radius: 0 0 80px 80px;
+      height: auto;
+      border-radius: 10px;
       z-index: 1;
-      transition: height 0.4s ease;
     }
 
     .label {
-      text-align: center;
       margin-top: 10px;
       font-size: 18px;
     }
@@ -81,30 +64,31 @@
 
     .coin {
       position: absolute;
-      width: 50px;
-      animation: dropCoin 1s ease-in-out forwards;
-      left: 125px;
       top: -60px;
-      z-index: 3;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      z-index: 2;
+      animation: dropCoin 1s ease-in-out forwards;
     }
 
     @keyframes dropCoin {
       0% {
         top: -60px;
         opacity: 0;
-        transform: scale(0.8);
+        transform: translateX(-50%) scale(0.8);
       }
       40% {
         opacity: 1;
       }
       100% {
-        top: 200px;
+        top: 170px;
         opacity: 0;
-        transform: scale(1);
+        transform: translateX(-50%) scale(1);
       }
     }
 
-    .qr img {
+    .qr-section img {
       width: 250px;
       height: auto;
       border-radius: 10px;
@@ -113,48 +97,33 @@
 </head>
 <body>
   <div class="container">
-    <div style="text-align: center; position: relative;">
-      <div class="jar-wrapper">
-        <div id="fill"></div>
-        <img id="jar" src="jar.png" alt="Jar" />
-      </div>
+    <!-- JAR + Button + Coin Drop -->
+    <div class="jar-wrapper">
+      <img id="jar" src="jar.png" alt="Jar" />
       <div class="label">Fill the Jar 💜</div>
       <button id="donate-btn">I donated!</button>
     </div>
-    <div class="qr">
-      <img src="Gpay Qr Code.jpeg" alt="QR Code" />
+
+    <!-- QR Code -->
+    <div class="qr-section">
+      <img src="Gpay QR Code.jpeg" alt="QR Code" />
       <div class="label">Scan to Support Pia</div>
     </div>
   </div>
 
   <script>
-    const container = document.querySelector(".container");
+    const jarWrapper = document.querySelector(".jar-wrapper");
     const button = document.getElementById("donate-btn");
-    const fill = document.getElementById("fill");
-
-    let fillLevel = 0;
 
     button.addEventListener("click", () => {
-      // Coin animation
       const coin = document.createElement("img");
-      coin.src = "coin.png";
+      coin.src = "coin.png"; // Make sure this file exists
       coin.classList.add("coin");
-      container.appendChild(coin);
-      setTimeout(() => coin.remove(), 1000);
+      jarWrapper.appendChild(coin);
 
-      // Fill jar
-      if (fillLevel < 100) {
-        fillLevel += 10;
-        fill.style.height = `${fillLevel}%`;
-      }
-
-      // Reset when full
-      if (fillLevel >= 100) {
-        setTimeout(() => {
-          fillLevel = 0;
-          fill.style.height = `0%`;
-        }, 1500);
-      }
+      setTimeout(() => {
+        coin.remove();
+      }, 1000);
     });
   </script>
 </body>
